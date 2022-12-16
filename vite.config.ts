@@ -1,9 +1,42 @@
-import { defineConfig } from 'vite';
+/* eslint-disable import/no-anonymous-default-export */
+import { defineConfig, loadEnv } from 'vite';
 import vitePluginImp from 'vite-plugin-imp';
 import react from '@vitejs/plugin-react';
+import { resolve } from 'path'
+import type { ConfigEnv } from 'vite'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default ({ command, mode }: ConfigEnv) => defineConfig({
+  define: {
+    'process.env': loadEnv(mode, process.cwd())
+  },
+  base: process.env.VITE_PUBLIC_PATH,
+  mode,
+  resolve: {
+    //别名
+    alias: {
+      '@': resolve(__dirname, './src'),
+      '@/components': resolve(__dirname, './src/components'),
+      '@/store': resolve(__dirname, './src/store'),
+      '@/views': resolve(__dirname, './src/views'),
+      '@/assets': resolve(__dirname, './src/assets'),
+      '@/hooks': resolve(__dirname, './src/hooks'),
+      '@/utils': resolve(__dirname, './src/utils'),
+      '@/layout': resolve(__dirname, './src/layout'),
+    },
+  },
+  //服务
+  server: {
+    //自定义代理---解决跨域
+    proxy: {
+      // 选项写法
+      '/api': {
+        target: 'http://xxxxxx.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
   plugins: [
     react(),
     vitePluginImp({
@@ -11,7 +44,7 @@ export default defineConfig({
       libList: [
         {
           libName: 'antd',
-          style: (name) => `antd/es/${name}/style`,
+          style: (name: any) => `antd/es/${name}/style`,
         },
       ],
     }),
@@ -27,4 +60,4 @@ export default defineConfig({
       },
     },
   },
-});
+})

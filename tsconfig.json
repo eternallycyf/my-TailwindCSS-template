@@ -1,21 +1,54 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "es6",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "es2021"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "NodeNext", //node环境
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react",
+    "baseUrl": ".",
+    "declaration": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@/assets/*": [
+        "src/assets/*"
+      ],
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/views/*": [
+        "src/views/*"
+      ],
+      "@/layout/*": [
+        "src/layout/*"
+      ],
+      "@/router/*": [
+        "src/router/*"
+      ],
+      "@/hooks/*": [
+        "src/hooks/*"
+      ]
+    }
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "**/*",
+  ],
+  "exclude": [
+    "node_modules",
+  ]
 }
