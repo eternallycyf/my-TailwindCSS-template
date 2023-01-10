@@ -24,7 +24,6 @@ export const routes = [
       {
         path: 'about',
         element: <About />,
-
         label: 'about',
         key: 'about',
         icon: <FileOutlined />,
